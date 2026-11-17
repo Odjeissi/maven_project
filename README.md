@@ -31,8 +31,6 @@ The AWS infrastructure was created using **Terraform**. I'm keeping the Terrafor
 
 NEXORA includes a storefront and REST APIs. I added user registration and login using JWT, product and stock management, orders, and simulated payments. PostgreSQL stores the data, and Flyway handles database changes.
 
-One feature I worked on was **inventory locking**. When orders are placed at the same time, the application uses database locks to help prevent selling more items than are in stock.
-
 ## GitLab CI/CD
 
 ![GitLab pipeline](docs/screenshots/gitlab-pipeline.png)

@@ -50,6 +50,7 @@ unit_tests:
       junit: target/surefire-reports/TEST-*.xml
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 secrets_detection:
   image:
@@ -62,6 +63,7 @@ secrets_detection:
     - gitleaks git . --redact -v
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 sast_scan:
   image:
@@ -85,6 +87,7 @@ sast_scan:
         -Dsonar.host.url="${SONAR_HOST_URL}"
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 sca_scan:
   image:
@@ -105,6 +108,7 @@ sca_scan:
       - snyk-report.json
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 docker_build:
   image: docker:29.8.2
@@ -119,6 +123,7 @@ docker_build:
     paths:
       - "${IMAGE_TAR_NAME}.tar"
   rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 trivy_image_scan:
@@ -147,6 +152,7 @@ trivy_image_scan:
     paths:
       - result_scan.json
   rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 docker_push:
@@ -165,6 +171,7 @@ docker_push:
     - docker load -i "${IMAGE_TAR_NAME}.tar"
     - docker push "${REPO}"
   rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 dev_deploy:
@@ -193,6 +200,7 @@ dev_deploy:
     - git commit -m "deploy new image tag ${IMAGE_TAG}"
     - git push origin main
   rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 dast_scan_job:
@@ -211,4 +219,5 @@ dast_scan_job:
     paths:
       - dastreport.html
   rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

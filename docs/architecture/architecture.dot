@@ -1,0 +1,22 @@
+digraph G {
+ graph [rankdir=LR, bgcolor="white", pad="0.35", nodesep="0.46", ranksep="0.72", splines=polyline, fontname="DejaVu Sans", label="Java E-Commerce | DevSecOps Delivery & Runtime Architecture", labelloc=t, fontsize=22, fontcolor="#17243b"];
+ node [shape=box, style="rounded,filled", fillcolor="#edf4ff", color="#7c9ac5", fontname="DejaVu Sans", fontsize=12, margin="0.18,0.14"];
+ edge [color="#667992", arrowsize=.75, penwidth=1.4];
+ terraform [label="Terraform IaC\nAWS infrastructure provisioning\n(source maintained privately)", fillcolor="#fff2d8", color="#c9a15c"];
+ dev [label="Code push\nmain / feature"];
+ gitlab [label="GitLab CI/CD\nMaven tests · SonarQube\nSnyk · Gitleaks", fillcolor="#e3efff"];
+ docker [label="Docker build\nTrivy image scan"];
+ ecr [label="AWS ECR\nCommit-SHA image", fillcolor="#fff0de"];
+ gitops [label="GitHub GitOps repo\nKustomize dev image tag", fillcolor="#e8f3e9"];
+ argo [label="Argo CD\nAuto-sync · self-heal", fillcolor="#e8f3e9"];
+ eks [label="AWS EKS · dev namespace\nSpring Boot application (2 pods)\nService · ALB Ingress", fillcolor="#e6f2f9"];
+ db [label="PostgreSQL\nExternal DB endpoint",fillcolor="#f1edff"];
+ metrics [label="ServiceMonitor → Prometheus\nGrafana dashboards", fillcolor="#f1edff"];
+ secret [label="AWS Secrets Manager\nExternal Secrets Operator", fillcolor="#fff3e2"];
+ zap [label="OWASP ZAP\nPost-deploy baseline scan", fillcolor="#ffeded"];
+ browser [label="Browser\nHTTPS via ALB"];
+ dev -> gitlab -> docker -> ecr -> gitops -> argo -> eks;
+ terraform -> eks [style=dashed, label="provisions infrastructure", constraint=false, color="#c9a15c"];
+ browser -> eks [label="HTTPS"];
+ eks -> db; eks -> metrics; secret -> eks; eks -> zap [style=dashed, label="scan target"];
+}

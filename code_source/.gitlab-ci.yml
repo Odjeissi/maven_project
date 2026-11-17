@@ -1,7 +1,8 @@
+# Run branch pipelines on main and feature branches.
+# Merge request pipelines are intentionally not enabled in this version.
 workflow:
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 stages:
   - test
@@ -49,8 +50,7 @@ unit_tests:
     reports:
       junit: target/surefire-reports/TEST-*.xml
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 secrets_detection:
   image:
@@ -62,8 +62,7 @@ secrets_detection:
     - gitleaks dir . --redact -v
     - gitleaks git . --redact -v
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 sast_scan:
   image:
@@ -86,8 +85,7 @@ sast_scan:
         -Dsonar.token="${SONAR_TOKEN}" \
         -Dsonar.host.url="${SONAR_HOST_URL}"
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 sca_scan:
   image:
@@ -107,8 +105,7 @@ sca_scan:
     paths:
       - snyk-report.json
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 docker_build:
   image: docker:29.8.2
@@ -123,8 +120,7 @@ docker_build:
     paths:
       - "${IMAGE_TAR_NAME}.tar"
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 trivy_image_scan:
   image:
@@ -152,8 +148,7 @@ trivy_image_scan:
     paths:
       - result_scan.json
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH'
 
 docker_push:
   image: docker:29.8.2
@@ -171,8 +166,7 @@ docker_push:
     - docker load -i "${IMAGE_TAR_NAME}.tar"
     - docker push "${REPO}"
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 dev_deploy:
   image:
@@ -200,8 +194,7 @@ dev_deploy:
     - git commit -m "deploy new image tag ${IMAGE_TAG}"
     - git push origin main
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 dast_scan_job:
   image:
@@ -219,5 +212,4 @@ dast_scan_job:
     paths:
       - dastreport.html
   rules:
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

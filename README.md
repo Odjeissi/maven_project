@@ -8,7 +8,7 @@ The application is a small e-commerce store called **NEXORA**. It uses Java 21, 
 
 ## Architecture
 
-![Java e-commerce DevSecOps flow](docs/architecture/architecture.png)
+![Java e-commerce DevSecOps flow](docs/architecture/architecture1.png)
 
 **How it works:** I push code to GitHub, and GitLab CI/CD runs the tests and scans. The pipeline builds a Docker image and, on `main`, pushes it to Amazon ECR. It then updates the image tag in a separate [GitOps repository](https://github.com/Odjeissi/gitops). Argo CD picks up the change and syncs the app to EKS.
 
@@ -16,16 +16,16 @@ The AWS infrastructure was created using **Terraform**. I'm keeping the Terrafor
 
 ## Tools used
 
-| Area | Tools |
-| --- | --- |
-| Application | Java 21, Spring Boot, Maven, PostgreSQL, Flyway |
-| Tests | JUnit, Mockito, Testcontainers, JaCoCo |
-| CI/CD | GitLab CI/CD, Docker, Amazon ECR |
-| Security | Gitleaks, SonarQube, Snyk, Trivy, OWASP ZAP |
+| Area               | Tools                                               |
+| ------------------ | --------------------------------------------------- |
+| Application        | Java 21, Spring Boot, Maven, PostgreSQL, Flyway     |
+| Tests              | JUnit, Mockito, Testcontainers, JaCoCo              |
+| CI/CD              | GitLab CI/CD, Docker, Amazon ECR                    |
+| Security           | Gitleaks, SonarQube, Snyk, Trivy, OWASP ZAP         |
 | AWS and Kubernetes | Terraform (private), Amazon EKS, AWS ALB, Kustomize |
-| GitOps | Argo CD |
-| Secrets | AWS Secrets Manager, External Secrets Operator |
-| Monitoring | Spring Boot Actuator, Prometheus, Grafana |
+| GitOps             | Argo CD                                             |
+| Secrets            | AWS Secrets Manager, External Secrets Operator      |
+| Monitoring         | Spring Boot Actuator, Prometheus, Grafana           |
 
 ## The application
 
@@ -39,17 +39,17 @@ One feature I worked on was **inventory locking**. When orders are placed at the
 
 The pipeline has nine jobs:
 
-| Job | What it does |
-| --- | --- |
-| `unit_tests` | Runs Maven tests |
-| `secrets_detection` | Checks for secrets with Gitleaks |
-| `sast_scan` | Scans the Java code with SonarQube |
-| `sca_scan` | Checks dependencies with Snyk |
-| `docker_build` | Builds the Docker image |
-| `trivy_image_scan` | Scans the image with Trivy |
-| `docker_push` | Pushes the image to Amazon ECR |
-| `dev_deploy` | Updates the image tag in the GitOps repo |
-| `dast_scan_job` | Runs OWASP ZAP against the deployed app |
+| Job                 | What it does                             |
+| ------------------- | ---------------------------------------- |
+| `unit_tests`        | Runs Maven tests                         |
+| `secrets_detection` | Checks for secrets with Gitleaks         |
+| `sast_scan`         | Scans the Java code with SonarQube       |
+| `sca_scan`          | Checks dependencies with Snyk            |
+| `docker_build`      | Builds the Docker image                  |
+| `trivy_image_scan`  | Scans the image with Trivy               |
+| `docker_push`       | Pushes the image to Amazon ECR           |
+| `dev_deploy`        | Updates the image tag in the GitOps repo |
+| `dast_scan_job`     | Runs OWASP ZAP against the deployed app  |
 
 I updated the branch rules so that **tests, security scans, and the Docker build run on both feature branches and `main`**. Only `main` should push an image, update the GitOps repo, and run the deployed-app scan. The screenshot above is from a successful nine-job run before that rules update.
 
@@ -67,8 +67,8 @@ The screenshot shows the development application healthy and synced with two run
 
 I use Prometheus to collect metrics and Grafana to see how the application is doing. Spring Boot exposes metrics at `/actuator/prometheus`.
 
-| Grafana dashboard | Prometheus targets |
-| --- | --- |
+| Grafana dashboard                                               | Prometheus targets                                             |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
 | ![CPU and memory in Grafana](docs/screenshots/grafana-pods.png) | ![Prometheus targets](docs/screenshots/prometheus-targets.png) |
 
 ![HTTP request metrics in Prometheus](docs/screenshots/prometheus-http-metrics.png)
@@ -116,11 +116,11 @@ docker compose up --build -d
 
 Once the app is running:
 
-| Page | URL |
-| --- | --- |
-| Storefront | http://localhost:8080/ |
-| Swagger UI | http://localhost:8080/swagger-ui.html |
-| Health check | http://localhost:8080/actuator/health |
+| Page               | URL                                       |
+| ------------------ | ----------------------------------------- |
+| Storefront         | http://localhost:8080/                    |
+| Swagger UI         | http://localhost:8080/swagger-ui.html     |
+| Health check       | http://localhost:8080/actuator/health     |
 | Prometheus metrics | http://localhost:8080/actuator/prometheus |
 
 To run tests with Java 21 and Maven installed:

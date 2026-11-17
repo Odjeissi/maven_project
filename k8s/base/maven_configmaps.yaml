@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maven-configmap
+data:
+  APP_SEED_PRODUCTS_ENABLED: "true"
+  APP_JWT_ISSUER: ecommerce-monolith
+  APP_JWT_EXPIRATION_MINUTES: "60"
+  DB_HOST: maven-externalname
+  DB_PORT: "5432"
+  DB_NAME: ecommerce
+

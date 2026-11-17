@@ -1,0 +1,15 @@
+{
+  "name": "nexora-ecommerce-storefront",
+  "version": "1.0.0",
+  "description": "Modern e-commerce storefront for Java 21 + Spring Boot 3 monolith",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node -e \"console.log('Build complete - static resources ready in src/main/resources/static')\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

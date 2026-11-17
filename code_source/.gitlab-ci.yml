@@ -1,0 +1,214 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+stages:
+  - test
+  - security
+  - build
+  - container_scan
+  - push
+  - deploy
+  - dast_scan
+
+variables:
+  MAVEN_IMAGE: maven:3.9-eclipse-temurin-21
+  IMAGE_TAR_NAME: app_image
+  REPO: "${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}"
+
+.assume_ecr_role:
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: sts.amazonaws.com
+  before_script:
+    # this is split out for correct exit code handling
+    - >
+      aws_sts_output=$(aws sts assume-role-with-web-identity
+      --role-arn ${ROLE_ARN}
+      --role-session-name "GitLabRunner-${CI_PROJECT_ID}-${CI_PIPELINE_ID}"
+      --web-identity-token ${GITLAB_OIDC_TOKEN}
+      --duration-seconds 3600
+      --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]'
+      --output text)
+    - export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" $aws_sts_output)
+    - aws sts get-caller-identity
+
+unit_tests:
+  image:
+    name: "${MAVEN_IMAGE}"
+    entrypoint: [""]
+  stage: test
+  script:
+    - echo "Running JUnit unit tests"
+    - mvn clean test
+  artifacts:
+    when: always
+    paths:
+      - target/surefire-reports/dev.*.txt
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+secrets_detection:
+  image:
+    name: zricethezav/gitleaks:v8.30.1
+    entrypoint: [""]
+  stage: security
+  script:
+    - echo "Scanning source code and Git history for secrets"
+    - gitleaks dir . --redact -v
+    - gitleaks git . --redact -v
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+sast_scan:
+  image:
+    name: "${MAVEN_IMAGE}"
+    entrypoint: [""]
+  stage: security
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - echo "Running SonarQube code quality analysis"
+    # SonarQube settings are defined in the <properties> field in pom.xml.
+    # Maven reads these settings automatically, so we don't need to pass them using -D.
+    - |
+      mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211:sonar \
+        -Dsonar.token="${SONAR_TOKEN}" \
+        -Dsonar.host.url="${SONAR_HOST_URL}"
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+sca_scan:
+  image:
+    name: "${MAVEN_IMAGE}"
+    entrypoint: [""]
+  stage: security
+
+  # Security quality gate is currently disabled for demonstration purposes.
+  # Set <failOnIssues>true</failOnIssues> in pom.xml to fail the pipeline
+  # when Snyk detects dependency vulnerabilities.
+
+  script:
+    - echo "Scanning Maven dependencies for vulnerabilities"
+    - mvn clean snyk:test
+  artifacts:
+    when: always
+    paths:
+      - snyk-report.json
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+docker_build:
+  image: docker:29.8.2
+  services:
+    - docker:29.8.2-dind
+  stage: build
+  script:
+    - docker build -t "${REPO}" -f ./Docker/Dockerfile .
+    - docker save -o "${IMAGE_TAR_NAME}.tar" "${REPO}"
+  artifacts:
+    when: always
+    paths:
+      - "${IMAGE_TAR_NAME}.tar"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+trivy_image_scan:
+  image:
+    name: aquasec/trivy:0.76.0
+    entrypoint: [""]
+  stage: container_scan
+  variables:
+    TRIVY_CACHE_DIR: ".trivycache/"
+    TRIVY_NO_PROGRESS: "true"
+  cache:
+    key: trivy-cache
+    paths:
+      - .trivycache/  # Cache the vulnerability DB to speed up subsequent runs
+  dependencies:
+    - docker_build
+  script:
+     # Scan image and generate JSON report
+    - trivy image --scanners vuln --format json --output result_scan.json --input "${IMAGE_TAR_NAME}.tar"
+    # Set --exit-code to 1 to fail the pipeline if HIGH or CRITICAL
+    # vulnerabilities are detected. Currently set to 0 for demonstration
+    # purposes, allowing the pipeline to pass while still reporting findings.
+    - trivy convert --scanners vuln --format table --table-mode summary,detailed --severity HIGH,CRITICAL --exit-code 0 result_scan.json
+  artifacts:
+    when: always
+    paths:
+      - result_scan.json
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+docker_push:
+  image: docker:29.8.2
+  services:
+    - docker:29.8.2-dind
+  stage: push
+  extends: .assume_ecr_role
+  before_script:
+    - apk update && apk add aws-cli
+    - !reference [.assume_ecr_role, before_script]
+    - aws ecr get-login-password --region "${REGION}" | docker login --username AWS --password-stdin "${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com"
+  dependencies:
+    - docker_build
+  script:
+    - docker load -i "${IMAGE_TAR_NAME}.tar"
+    - docker push "${REPO}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+dev_deploy:
+  image:
+    name: alpine/git:2.54.0
+    entrypoint: [""]
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client yq-go
+    - eval $(ssh-agent -s)
+    - chmod 400 "${GITHUB_SSH_PRIVATE_KEY}"
+    - ssh-add "${GITHUB_SSH_PRIVATE_KEY}"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cp "${SSH_KNOWN_HOSTS}" ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+        # Optional: Configure git identity info for interactions
+    - git config --global user.email "runner@gitlab.com"
+    - git config --global user.name "GitLab Runner"
+  script:
+    - git clone "${GITOPS_REPO}"
+    - cd gitops/overlays/dev
+    - export IMAGE_TAG="${CI_COMMIT_SHORT_SHA}"
+    - yq -i '.images[0].newTag = env(IMAGE_TAG)' kustomization.yaml
+    - git add kustomization.yaml
+    - git commit -m "deploy new image tag ${IMAGE_TAG}"
+    - git push origin main
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+dast_scan_job:
+  image:
+    name: zaproxy/zap-stable:2.17.0
+    entrypoint: [""]
+  stage: dast_scan
+  before_script:
+    - mkdir -p /zap/wrk
+  script:
+    - zap-baseline.py -t "${APP_URL}" -I -l WARN -r dastreport.html
+  after_script:
+    - cp /zap/wrk/dastreport.html $CI_PROJECT_DIR/dastreport.html
+  artifacts:
+    when: always
+    paths:
+      - dastreport.html
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

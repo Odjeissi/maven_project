@@ -1,0 +1,14 @@
+app:
+  jwt:
+    issuer: ecommerce-test
+    expiration-minutes: 30
+  bootstrap:
+    admin-email: ''
+    admin-password: ''
+  seed:
+    products:
+      enabled: false
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate

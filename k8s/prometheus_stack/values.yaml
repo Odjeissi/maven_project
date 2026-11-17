@@ -1,0 +1,21 @@
+# EKS Fargate: explicitly define CPU and memory because the default
+# Fargate resources were not sufficient for Prometheus and Grafana.
+
+grafana:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+prometheus:
+  prometheusSpec:
+    resources:
+      requests:
+        cpu: "1"
+        memory: 2Gi
+      limits:
+        cpu: "1"
+        memory: 2Gi

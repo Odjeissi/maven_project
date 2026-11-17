@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEXORA — Premium Lifestyle & Electronics</title>
+    <meta
+      name="description"
+      content="Precision-engineered hardware and cognitive workspace tools for the modern professional. Built for the Java 21 Spring Boot Monolith."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body
+    class="bg-canvas text-charcoal font-sans antialiased selection:bg-brand selection:text-white"
+  >
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+      <div class="announcement-content">
+        <div class="announcement-pill">FREE SHIPPING</div>
+        <span
+          >Complimentary carbon-neutral express delivery on all orders over
+          $75</span
+        >
+        <span class="announcement-divider">•</span>
+        <span>30-Day Risk-Free Trial with Free Returns</span>
+      </div>
+      <div class="announcement-actions">
+        <div
+          class="data-mode-badge"
+          id="dataModeBadge"
+          title="Current API connectivity mode"
+        >
+          <span class="pulse-indicator"></span>
+          <span id="dataModeLabel">Spring Boot API</span>
+        </div>
+        <button
+          type="button"
+          class="devops-info-btn"
+          id="openDevOpsModalBtn"
+          aria-label="DevOps Architecture Details"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+            />
+          </svg>
+          DevOps & API Docs
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="main-header" id="mainHeader">
+      <div class="header-container">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-logo" id="brandLogoHome">
+          <div class="brand-mark">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="#090D16" />
+              <path
+                d="M6 18L12 6L18 18"
+                stroke="#3B82F6"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8.5 13H15.5"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span class="brand-name">NEXORA</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="nav-links" aria-label="Primary Navigation">
+          <button type="button" class="nav-link active" data-category="ALL">
+            Explore All
+          </button>
+          <button type="button" class="nav-link" data-category="Audio">
+            Audio
+          </button>
+          <button type="button" class="nav-link" data-category="Displays">
+            Displays
+          </button>
+          <button type="button" class="nav-link" data-category="Peripherals">
+            Peripherals
+          </button>
+          <button type="button" class="nav-link" data-category="Accessories">
+            Accessories
+          </button>
+          <button type="button" class="nav-link" data-category="Lifestyle">
+            Lifestyle
+          </button>
+        </nav>
+
+        <!-- Search & User Actions -->
+        <div class="header-actions">
+          <!-- Search Input -->
+          <div class="search-wrapper">
+            <svg
+              class="search-icon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search products, SKUs..."
+              autocomplete="off"
+            />
+            <button
+              type="button"
+              id="clearSearchBtn"
+              class="clear-search-btn hidden"
+              aria-label="Clear search"
+            >
+              ×
+            </button>
+          </div>
+
+          <!-- Orders Navigation Link -->
+          <button
+            type="button"
+            class="action-btn"
+            id="navOrdersBtn"
+            title="My Orders"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span class="action-btn-label">Orders</span>
+          </button>
+
+          <!-- User / Auth Menu -->
+          <div class="user-menu-wrapper" id="userMenuWrapper">
+            <button type="button" class="action-btn user-btn" id="userMenuBtn">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span id="userBtnLabel" class="action-btn-label">Sign In</span>
+            </button>
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown hidden" id="userDropdown">
+              <div class="dropdown-header">
+                <p class="dropdown-user-email" id="dropdownUserEmail">
+                  Not signed in
+                </p>
+                <span class="badge" id="dropdownUserRole">GUEST</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button
+                type="button"
+                class="dropdown-item"
+                id="dropdownOrdersBtn"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                  />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                My Orders
+              </button>
+              <button
+                type="button"
+                class="dropdown-item hidden"
+                id="dropdownAdminBtn"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                Admin Dashboard
+              </button>
+              <div class="dropdown-divider"></div>
+              <button
+                type="button"
+                class="dropdown-item text-danger"
+                id="dropdownLogoutBtn"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+
+          <!-- Cart Button -->
+          <button
+            type="button"
+            class="cart-trigger-btn"
+            id="openCartBtn"
+            aria-label="Shopping Cart"
+          >
+            <div class="cart-icon-wrapper">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                ></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span class="cart-badge" id="cartBadgeCount">0</span>
+            </div>
+            <span class="cart-subtotal" id="cartHeaderTotal">$0.00</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main View Container -->
+    <main id="appMain">
+      <!-- HOME / CATALOG VIEW -->
+      <section id="storefrontView" class="view-section active">
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-container">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <span class="hero-badge-tag">Spring 2026 Release</span>
+                <span>Next-Gen Audio & Ergonomics</span>
+              </div>
+              <h1 class="hero-title">
+                Engineered for Focus. <br />
+                <span class="text-gradient">Refined for Precision.</span>
+              </h1>
+              <p class="hero-description">
+                Upgrade your cognitive workstation with acoustically tuned audio
+                drivers, custom CNC machined mechanical inputs, and calibrated
+                4K IPS monitors.
+              </p>
+              <div class="hero-cta-group">
+                <a href="#catalogAnchor" class="btn btn-primary btn-lg">
+                  Explore Collection
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-lg"
+                  id="heroAdminBtn"
+                >
+                  Admin Catalog Portal
+                </button>
+              </div>
+              <div class="hero-features-strip">
+                <div class="hero-feature-item">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  <span>2-Year Warranty</span>
+                </div>
+                <div class="hero-feature-item">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="1" y="3" width="15" height="13" />
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                    <circle cx="5.5" cy="18.5" r="2.5" />
+                    <circle cx="18.5" cy="18.5" r="2.5" />
+                  </svg>
+                  <span>Express Delivery</span>
+                </div>
+                <div class="hero-feature-item">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                    />
+                  </svg>
+                  <span>Stock Protection</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-media">
+              <div class="hero-card-glow"></div>
+              <div class="hero-card">
+                <img
+                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1000&auto=format&fit=crop&q=80"
+                  alt="NEXORA AeroPulse Pro Headphones"
+                  class="hero-image"
+                />
+                <div class="hero-card-overlay">
+                  <div class="hero-card-meta">
+                    <span class="hero-card-pill">Staff Pick</span>
+                    <h3 class="hero-card-title">AeroPulse Pro ANC</h3>
+                    <p class="hero-card-price">$349.00 USD</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-white"
+                    id="heroQuickBuyBtn"
+                  >
+                    Quick View
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category Filter Pills Bar -->
+        <section class="catalog-header-section" id="catalogAnchor">
+          <div class="section-container">
+            <div class="catalog-toolbar">
+              <div class="category-pills" id="categoryPillsContainer">
+                <button
+                  type="button"
+                  class="category-pill active"
+                  data-category="ALL"
+                >
+                  All Hardware
+                </button>
+                <button
+                  type="button"
+                  class="category-pill"
+                  data-category="Audio"
+                >
+                  Audio
+                </button>
+                <button
+                  type="button"
+                  class="category-pill"
+                  data-category="Displays"
+                >
+                  Displays
+                </button>
+                <button
+                  type="button"
+                  class="category-pill"
+                  data-category="Peripherals"
+                >
+                  Peripherals
+                </button>
+                <button
+                  type="button"
+                  class="category-pill"
+                  data-category="Accessories"
+                >
+                  Accessories
+                </button>
+                <button
+                  type="button"
+                  class="category-pill"
+                  data-category="Lifestyle"
+                >
+                  Lifestyle
+                </button>
+              </div>
+              <div class="catalog-filters">
+                <div class="filter-group">
+                  <label for="sortSelect" class="filter-label">Sort by:</label>
+                  <select id="sortSelect" class="form-select">
+                    <option value="name-asc">Name: A to Z</option>
+                    <option value="name-desc">Name: Z to A</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="stock-desc">Stock: Highest First</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-checkbox-label">
+                    <input type="checkbox" id="inStockOnlyCheckbox" />
+                    <span>In Stock Only</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Filter & Results Meta -->
+            <div class="results-meta-bar">
+              <p id="resultsCountLabel" class="results-count">
+                Loading catalog...
+              </p>
+              <div
+                class="mock-mode-callout"
+                id="emptyDbNotice"
+                style="display: none"
+              >
+                <span>No products in database yet.</span>
+                <button type="button" class="btn-link" id="seedDemoDataBtn">
+                  Load Curated Catalog
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid">
+              <!-- Skeleton cards rendered via JS while loading -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="emptyCatalogState">
+              <div class="empty-state-icon">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <h3 class="empty-state-title">No products match your criteria</h3>
+              <p class="empty-state-desc">
+                Try resetting your search query or removing category filters.
+              </p>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="resetCatalogFiltersBtn"
+              >
+                Reset All Filters
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trust Badges & Brand Pillars -->
+        <section class="brand-pillars-section">
+          <div class="section-container">
+            <div class="pillars-grid">
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <h4 class="pillar-title">2-Year Comprehensive Warranty</h4>
+                <p class="pillar-desc">
+                  Every hardware component is stress-tested to aerospace
+                  standards and guaranteed against manufacturing defects.
+                </p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                    <polyline points="17 6 23 6 23 12" />
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Zero Inventory Overselling</h4>
+                <p class="pillar-desc">
+                  Backed by Spring Boot ACID transactional stock locks and
+                  PostgreSQL isolation to guarantee order allocation.
+                </p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                </div>
+                <h4 class="pillar-title">Simulated Payment Gateway</h4>
+                <p class="pillar-desc">
+                  Test end-to-end purchasing, mock authorization, stock
+                  restoration, and cancellation workflows safely.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ORDERS VIEW -->
+      <section id="ordersView" class="view-section hidden">
+        <div class="section-container">
+          <div class="page-header">
+            <div>
+              <button type="button" class="back-link-btn" id="ordersBackBtn">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                Back to Catalog
+              </button>
+              <h1 class="page-title">My Orders</h1>
+              <p class="page-subtitle">
+                Track your recent orders, simulate payments, or cancel pending
+                requests.
+              </p>
+            </div>
+            <div class="page-header-actions">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                id="refreshOrdersBtn"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="23 4 23 10 17 10" />
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                </svg>
+                Refresh Orders
+              </button>
+            </div>
+          </div>
+
+          <!-- Orders Filter Bar -->
+          <div class="orders-filter-bar">
+            <button
+              type="button"
+              class="orders-filter-pill active"
+              data-status="ALL"
+            >
+              All Orders
+            </button>
+            <button
+              type="button"
+              class="orders-filter-pill"
+              data-status="PENDING_PAYMENT"
+            >
+              Pending Payment
+            </button>
+            <button type="button" class="orders-filter-pill" data-status="PAID">
+              Paid
+            </button>
+            <button
+              type="button"
+              class="orders-filter-pill"
+              data-status="CANCELLED"
+            >
+              Cancelled
+            </button>
+            <button
+              type="button"
+              class="orders-filter-pill"
+              data-status="PAYMENT_FAILED"
+            >
+              Payment Failed
+            </button>
+          </div>
+
+          <!-- Orders List Container -->
+          <div class="orders-list" id="ordersListContainer">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Empty Orders State -->
+          <div class="empty-state hidden" id="emptyOrdersState">
+            <div class="empty-state-icon">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+            </div>
+            <h3 class="empty-state-title">No orders found</h3>
+            <p class="empty-state-desc">
+              You haven't placed any orders yet. Discover our premium hardware
+              collection!
+            </p>
+            <button type="button" class="btn btn-primary" id="ordersShopNowBtn">
+              Start Shopping
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN DASHBOARD VIEW -->
+      <section id="adminView" class="view-section hidden">
+        <div class="section-container">
+          <div class="page-header">
+            <div>
+              <button type="button" class="back-link-btn" id="adminBackBtn">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                Back to Storefront
+              </button>
+              <div class="flex items-center gap-3">
+                <h1 class="page-title">Admin Management Portal</h1>
+                <span class="role-badge-admin">ADMINISTRATOR</span>
+              </div>
+              <p class="page-subtitle">
+                Product catalog administration, inventory adjustments, and
+                global order surveillance.
+              </p>
+            </div>
+            <div class="page-header-actions">
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="openCreateProductModalBtn"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add New Product
+              </button>
+            </div>
+          </div>
+
+          <!-- Admin Metrics Cards -->
+          <div class="admin-metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Total Catalog Products</span>
+              <div class="metric-value" id="metricTotalProducts">0</div>
+              <span class="metric-sub">Active in store catalog</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Total Units in Stock</span>
+              <div class="metric-value" id="metricTotalUnits">0</div>
+              <span class="metric-sub">Across all SKUs</span>
+            </div>
+            <div class="metric-card alert-warning-card">
+              <span class="metric-label">Low Stock Alerts</span>
+              <div class="metric-value text-amber" id="metricLowStockCount">
+                0
+              </div>
+              <span class="metric-sub">SKUs with &le; 5 units remaining</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Global Purchase Orders</span>
+              <div class="metric-value" id="metricTotalOrders">0</div>
+              <span class="metric-sub">Stored in PostgreSQL</span>
+            </div>
+          </div>
+
+          <!-- Admin Tabs -->
+          <div class="admin-tabs">
+            <button type="button" class="admin-tab active" data-tab="products">
+              Product Catalog & Inventory
+            </button>
+            <button type="button" class="admin-tab" data-tab="orders">
+              System Purchase Orders
+            </button>
+          </div>
+
+          <!-- Tab 1: Products Table -->
+          <div id="adminProductsTab" class="admin-tab-content active">
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>SKU</th>
+                      <th>Unit Price</th>
+                      <th>Available Stock</th>
+                      <th>Status</th>
+                      <th class="text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminProductsTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: System Orders Table -->
+          <div id="adminOrdersTab" class="admin-tab-content hidden">
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer ID</th>
+                      <th>Created</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Items</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminOrdersTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Product Details Modal -->
+    <div class="modal-backdrop hidden" id="productDetailModal">
+      <div class="modal-dialog modal-lg">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeProductDetailModalBtn"
+          aria-label="Close modal"
+        >
+          ×
+        </button>
+        <div class="product-detail-layout" id="productDetailContent">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Shopping Cart Slide-Over Drawer -->
+    <div class="drawer-backdrop hidden" id="cartDrawerBackdrop">
+      <div class="drawer-container">
+        <div class="drawer-header">
+          <div class="drawer-title-group">
+            <h2 class="drawer-title">Shopping Cart</h2>
+            <span class="badge" id="cartDrawerItemCount">0 items</span>
+          </div>
+          <button
+            type="button"
+            class="drawer-close-btn"
+            id="closeCartDrawerBtn"
+            aria-label="Close cart"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="drawer-body" id="cartItemsContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="drawer-footer" id="cartDrawerFooter">
+          <div class="cart-summary-breakdown">
+            <div class="summary-line">
+              <span>Subtotal</span>
+              <span id="cartDrawerSubtotal" class="font-semibold">$0.00</span>
+            </div>
+            <div class="summary-line text-sm text-muted">
+              <span>Shipping</span>
+              <span class="text-emerald">FREE</span>
+            </div>
+            <div class="summary-line text-sm text-muted">
+              <span>Estimated Sales Tax</span>
+              <span>$0.00</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-line text-lg font-bold">
+              <span>Total</span>
+              <span id="cartDrawerTotal">$0.00</span>
+            </div>
+          </div>
+          <div class="drawer-actions">
+            <button
+              type="button"
+              class="btn btn-primary btn-block btn-lg"
+              id="proceedToCheckoutBtn"
+            >
+              Proceed to Checkout
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="btn btn-ghost btn-block"
+              id="continueShoppingBtn"
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-backdrop hidden" id="checkoutModal">
+      <div class="modal-dialog modal-md">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeCheckoutModalBtn"
+          aria-label="Close checkout"
+        >
+          ×
+        </button>
+        <div class="checkout-modal-content">
+          <!-- Step 1: Review & Submit -->
+          <div id="checkoutFormStep">
+            <h2 class="modal-title">Complete Your Order</h2>
+            <p class="modal-subtitle">
+              Review items, provide delivery details, and place your order.
+            </p>
+
+            <div class="checkout-review-box" id="checkoutReviewItems">
+              <!-- Rendered via JS -->
+            </div>
+
+            <form id="checkoutShippingForm" class="checkout-form">
+              <h4 class="form-section-title">
+                Shipping Address (Portfolio Demonstration)
+              </h4>
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="shipName" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    id="shipName"
+                    class="form-input"
+                    value="Alex Vance"
+                    required
+                  />
+                </div>
+                <div class="form-group flex-1">
+                  <label for="shipEmail" class="form-label"
+                    >Order Notification Email</label
+                  >
+                  <input
+                    type="email"
+                    id="shipEmail"
+                    class="form-input"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="shipAddress" class="form-label"
+                  >Street Address</label
+                >
+                <input
+                  type="text"
+                  id="shipAddress"
+                  class="form-input"
+                  value="100 Innovation Way, Suite 400"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="shipCity" class="form-label">City</label>
+                  <input
+                    type="text"
+                    id="shipCity"
+                    class="form-input"
+                    value="Seattle"
+                    required
+                  />
+                </div>
+                <div class="form-group w-32">
+                  <label for="shipZip" class="form-label">Postal Code</label>
+                  <input
+                    type="text"
+                    id="shipZip"
+                    class="form-input"
+                    value="98101"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="checkout-total-banner">
+                <span>Total Due:</span>
+                <span class="checkout-total-amount" id="checkoutModalTotal"
+                  >$0.00</span
+                >
+              </div>
+
+              <div class="modal-actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="cancelCheckoutBtn"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="placeOrderSubmitBtn"
+                >
+                  <span class="btn-text">Confirm & Place Order</span>
+                  <span class="btn-spinner hidden"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step 2: Payment Simulation -->
+          <div id="checkoutPaymentStep" class="hidden">
+            <div class="payment-sim-header">
+              <div class="payment-icon-pill">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+              </div>
+              <h2 class="modal-title">Simulate Payment Gateway</h2>
+              <p class="modal-subtitle">
+                Order successfully created with status
+                <strong class="text-amber">PENDING_PAYMENT</strong>. Test the
+                backend mock-payment transaction outcome.
+              </p>
+            </div>
+
+            <div class="order-created-card">
+              <div class="summary-line">
+                <span class="text-muted">Order ID:</span>
+                <code class="font-mono text-sm" id="createdOrderId"
+                  >00000000-0000-0000-0000-000000000000</code
+                >
+              </div>
+              <div class="summary-line">
+                <span class="text-muted">Total Amount:</span>
+                <span class="font-bold text-lg" id="createdOrderAmount"
+                  >$0.00</span
+                >
+              </div>
+            </div>
+
+            <div class="payment-action-buttons">
+              <button
+                type="button"
+                class="btn btn-emerald btn-lg btn-block"
+                id="simPaymentSuccessBtn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                Simulate Successful Payment (Status &rarr; PAID)
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger-soft btn-lg btn-block"
+                id="simPaymentFailBtn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                Simulate Payment Failure (Restores Inventory)
+              </button>
+            </div>
+
+            <p class="text-xs text-muted text-center mt-3">
+              Note: This triggers
+              <code>POST /api/v1/orders/{id}/payments</code> on the Spring Boot
+              backend. No real card is charged.
+            </p>
+          </div>
+
+          <!-- Step 3: Order Confirmation -->
+          <div id="checkoutSuccessStep" class="hidden">
+            <div class="success-screen text-center">
+              <div class="success-icon-wrapper">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#059669"
+                  stroke-width="2.5"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h2 class="modal-title">Payment Confirmed!</h2>
+              <p class="modal-subtitle">
+                Your order has been officially processed and reserved in
+                inventory.
+              </p>
+              <div class="confirmation-details-box">
+                <div class="summary-line">
+                  <span>Reference Order ID:</span>
+                  <code class="font-mono text-sm" id="confirmedOrderId"
+                    >00000000-0000-0000-0000-000000000000</code
+                  >
+                </div>
+                <div class="summary-line">
+                  <span>Order Status:</span>
+                  <span class="badge badge-paid" id="confirmedOrderStatus"
+                    >PAID</span
+                  >
+                </div>
+              </div>
+              <div class="modal-actions justify-center">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="confirmContinueShoppingBtn"
+                >
+                  Continue Shopping
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="confirmViewOrdersBtn"
+                >
+                  View in My Orders
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authentication Modal (Sign In / Register) -->
+    <div class="modal-backdrop hidden" id="authModal">
+      <div class="modal-dialog modal-sm">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeAuthModalBtn"
+          aria-label="Close authentication modal"
+        >
+          ×
+        </button>
+        <div class="auth-modal-content">
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab active" id="tabSignIn">
+              Sign In
+            </button>
+            <button type="button" class="auth-tab" id="tabRegister">
+              Create Account
+            </button>
+          </div>
+
+          <!-- Error Banner -->
+          <div class="alert alert-danger hidden" id="authErrorAlert"></div>
+
+          <!-- Quick Demo Switcher Buttons -->
+          <div class="demo-account-box">
+            <span class="demo-box-label">Quick Portfolio Persona:</span>
+            <div class="demo-btn-group">
+              <button
+                type="button"
+                class="btn btn-xs btn-outline"
+                id="demoCustomerBtn"
+              >
+                Customer Demo
+              </button>
+              <button
+                type="button"
+                class="btn btn-xs btn-outline"
+                id="demoAdminBtn"
+              >
+                Admin Demo
+              </button>
+            </div>
+          </div>
+
+          <!-- Sign In Form -->
+          <form id="signInForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail" class="form-label">Email Address</label>
+              <input
+                type="email"
+                id="loginEmail"
+                class="form-input"
+                placeholder="e.g. customer@nexora.io"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-input"
+                placeholder="••••••••••••"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-block btn-lg"
+              id="loginSubmitBtn"
+            >
+              Sign In
+            </button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="registerForm" class="auth-form hidden">
+            <div class="form-group">
+              <label for="regEmail" class="form-label">Email Address</label>
+              <input
+                type="email"
+                id="regEmail"
+                class="form-input"
+                placeholder="you@domain.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <div class="flex justify-between items-center">
+                <label for="regPassword" class="form-label">Password</label>
+                <span class="text-xs text-muted">Min 12 chars</span>
+              </div>
+              <input
+                type="password"
+                id="regPassword"
+                class="form-input"
+                minlength="12"
+                maxlength="72"
+                placeholder="12+ character password"
+                required
+              />
+              <p class="form-hint">
+                Spring Boot security enforces between 12 and 72 UTF-8
+                characters.
+              </p>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-block btn-lg"
+              id="registerSubmitBtn"
+            >
+              Create Customer Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin: Create Product Modal -->
+    <div class="modal-backdrop hidden" id="createProductModal">
+      <div class="modal-dialog modal-md">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeCreateProductModalBtn"
+        >
+          ×
+        </button>
+        <div class="modal-header">
+          <h2 class="modal-title">Create New Catalog Product</h2>
+          <p class="modal-subtitle">
+            Dispatches <code>POST /api/v1/products</code> to the Spring Boot
+            REST API.
+          </p>
+        </div>
+        <div
+          class="alert alert-danger hidden"
+          id="createProductErrorAlert"
+        ></div>
+        <form id="createProductForm" class="modal-form">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="newProdSku" class="form-label"
+                >SKU (e.g. NEX-CAM-4K)</label
+              >
+              <input
+                type="text"
+                id="newProdSku"
+                class="form-input font-mono"
+                placeholder="NEX-XXX-01"
+                pattern="[A-Z0-9-]{2,64}"
+                required
+              />
+              <p class="form-hint">
+                Must match uppercase regex <code>[A-Z0-9-]{2,64}</code>
+              </p>
+            </div>
+            <div class="form-group flex-1">
+              <label for="newProdCategory" class="form-label">Category</label>
+              <select id="newProdCategory" class="form-select">
+                <option value="Audio">Audio</option>
+                <option value="Displays">Displays</option>
+                <option value="Peripherals">Peripherals</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Lifestyle">Lifestyle</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newProdName" class="form-label">Product Name</label>
+            <input
+              type="text"
+              id="newProdName"
+              class="form-input"
+              maxlength="120"
+              placeholder="e.g. UltraView 4K HDR Streaming Webcam"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="newProdDesc" class="form-label">Description</label>
+            <textarea
+              id="newProdDesc"
+              class="form-textarea"
+              rows="3"
+              maxlength="2000"
+              placeholder="Detailed technical specifications and features..."
+              required
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="newProdPrice" class="form-label"
+                >Unit Price ($ USD)</label
+              >
+              <input
+                type="number"
+                id="newProdPrice"
+                class="form-input"
+                step="0.01"
+                min="0.01"
+                placeholder="149.99"
+                required
+              />
+            </div>
+            <div class="form-group flex-1">
+              <label for="newProdStock" class="form-label"
+                >Initial Stock Quantity</label
+              >
+              <input
+                type="number"
+                id="newProdStock"
+                class="form-input"
+                min="0"
+                placeholder="50"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newProdImage" class="form-label"
+              >Product Image URL (Optional)</label
+            >
+            <input
+              type="url"
+              id="newProdImage"
+              class="form-input"
+              placeholder="https://images.unsplash.com/..."
+            />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelCreateProductBtn"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitCreateProductBtn"
+            >
+              Save Product to Database
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin: Stock Adjustment Modal -->
+    <div class="modal-backdrop hidden" id="stockAdjustModal">
+      <div class="modal-dialog modal-sm">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeStockAdjustModalBtn"
+        >
+          ×
+        </button>
+        <div class="modal-header">
+          <h2 class="modal-title">Inventory Stock Adjustment</h2>
+          <p class="modal-subtitle" id="stockAdjustSubtitle">Product SKU</p>
+        </div>
+        <div class="alert alert-danger hidden" id="stockAdjustErrorAlert"></div>
+        <form id="stockAdjustForm" class="modal-form">
+          <input type="hidden" id="stockAdjustProductId" />
+          <div class="current-stock-callout">
+            <span>Current Available Stock:</span>
+            <span class="font-bold text-lg" id="stockAdjustCurrentVal">0</span>
+          </div>
+          <div class="form-group">
+            <label for="stockDeltaInput" class="form-label"
+              >Stock Change Delta (+ or -)</label
+            >
+            <input
+              type="number"
+              id="stockDeltaInput"
+              class="form-input text-lg font-mono text-center"
+              placeholder="+10 or -5"
+              required
+            />
+            <p class="form-hint">
+              Positive number to receive inventory, negative to deduct. Cannot
+              be 0.
+            </p>
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelStockAdjustBtn"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitStockAdjustBtn"
+            >
+              Apply Adjustment
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin: Edit Product Modal -->
+    <div class="modal-backdrop hidden" id="editProductModal">
+      <div class="modal-dialog modal-md">
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="closeEditProductModalBtn"
+        >
+          ×
+        </button>
+        <div class="modal-header">
+          <h2 class="modal-title">Edit Product</h2>
+          <p class="modal-subtitle">
+            Dispatches <code>PUT /api/v1/products/{id}</code> to update product
+            attributes.
+          </p>
+        </div>
+        <div class="alert alert-danger hidden" id="editProductErrorAlert"></div>
+        <form id="editProductForm" class="modal-form">
+          <input type="hidden" id="editProductId" />
+          <div class="form-group">
+            <label for="editProdName" class="form-label">Product Name</label>
+            <input
+              type="text"
+              id="editProdName"
+              class="form-input"
+              maxlength="120"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editProdDesc" class="form-label">Description</label>
+            <textarea
+              id="editProdDesc"
+              class="form-textarea"
+              rows="3"
+              maxlength="2000"
+              required
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label for="editProdPrice" class="form-label"
+                >Unit Price ($ USD)</label
+              >
+              <input
+                type="number"
+                id="editProdPrice"
+                class="form-input"
+                step="0.01"
+                min="0.01"
+                required
+              />
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label">Product Status</label>
+              <div class="flex items-center gap-3 mt-2">
+                <label class="filter-checkbox-label">
+                  <input type="checkbox" id="editProdActive" />
+                  <span>Active (Available in Catalog)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelEditProductBtn"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitEditProductBtn"
+            >
+              Update Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- DevOps & Architecture Modal -->
+    <div class="modal-backdrop hidden" id="devOpsModal">
+      <div class="modal-dialog modal-lg">
+        <button type="button" class="modal-close-btn" id="closeDevOpsModalBtn">
+          ×
+        </button>
+        <div class="modal-header">
+          <div class="flex items-center gap-2">
+            <span class="badge badge-paid">SPRING BOOT 3.5 MONOLITH</span>
+            <span class="badge">JAVA 21</span>
+            <span class="badge">POSTGRESQL</span>
+          </div>
+          <h2 class="modal-title mt-2">
+            NEXORA Architecture & DevOps Integration
+          </h2>
+          <p class="modal-subtitle">
+            Technical blueprint for packaging this storefront directly into the
+            monolithic JAR.
+          </p>
+        </div>
+        <div class="devops-modal-content">
+          <div class="devops-section">
+            <h4 class="devops-heading">
+              1. How Spring Boot Serves This Storefront
+            </h4>
+            <p class="text-sm text-secondary">
+              Spring Boot automatically serves static assets from
+              <code>src/main/resources/static/</code> at the root path
+              <code>http://localhost:8080/</code>. All files
+              (<code>index.html</code>, <code>styles.css</code>,
+              <code>store.js</code>) are bundled directly into the executable
+              JAR file during Maven compilation.
+            </p>
+          </div>
+
+          <div class="devops-section">
+            <h4 class="devops-heading">2. Maven Build & Run Commands</h4>
+            <pre class="code-block"><code># Clean and compile JAR with Maven:
+mvn clean package -DskipTests
+
+</code></pre>
+          </div>
+
+          <div class="devops-section">
+            <h4 class="devops-heading">
+              3. Spring Security Permitted Static Endpoints
+            </h4>
+            <p class="text-sm text-secondary mb-2">
+              In <code>dev.portfolio.store.config.SecurityConfig</code>, ensure
+              public access to static resources:
+            </p>
+            <pre class="code-block"><code>.authorizeHttpRequests(auth -> auth
+    .requestMatchers("/", "/index.html", "/*.css", "/*.js", "/assets/**", "/favicon.ico").permitAll()
+    .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
+    .requestMatchers(HttpMethod.GET, "/api/v1/products", "/api/v1/products/*").permitAll()
+    .requestMatchers("/actuator/health", "/actuator/info", "/actuator/prometheus").permitAll()
+    .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+    .anyRequest().authenticated())</code></pre>
+          </div>
+
+          <div class="devops-section">
+            <h4 class="devops-heading">4. Available Observability Endpoints</h4>
+            <div class="endpoints-grid">
+              <a href="/actuator/health" target="_blank" class="endpoint-badge">
+                <code>GET /actuator/health</code>
+                <span>Readiness & DB checks</span>
+              </a>
+              <a
+                href="/actuator/prometheus"
+                target="_blank"
+                class="endpoint-badge"
+              >
+                <code>GET /actuator/prometheus</code>
+                <span>Micrometer metrics</span>
+              </a>
+              <a href="/swagger-ui.html" target="_blank" class="endpoint-badge">
+                <code>GET /swagger-ui.html</code>
+                <span>OpenAPI Specification</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="section-container">
+        <div class="footer-top">
+          <div class="footer-brand-col">
+            <div class="brand-logo footer-logo">
+              <div class="brand-mark">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="6" fill="#090D16" />
+                  <path
+                    d="M6 18L12 6L18 18"
+                    stroke="#3B82F6"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M8.5 13H15.5"
+                    stroke="#FFFFFF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <span class="brand-name">NEXORA</span>
+            </div>
+            <p class="footer-tagline">
+              Precision cognitive hardware and minimalist workspace lifestyle.
+              Designed for professionals who demand aesthetic purity and peak
+              tactile performance.
+            </p>
+            <div class="footer-tech-stack">
+              <span class="tech-pill">Java 21</span>
+              <span class="tech-pill">Spring Boot 3</span>
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">Vanilla ES6+</span>
+            </div>
+          </div>
+
+          <div class="footer-links-col">
+            <h4 class="footer-col-title">Storefront</h4>
+            <ul class="footer-links-list">
+              <li>
+                <a href="#" class="footer-link" data-cat="Audio"
+                  >Acoustics & Audio</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link" data-cat="Displays"
+                  >4K HDR Displays</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link" data-cat="Peripherals"
+                  >Tactile Input</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link" data-cat="Accessories"
+                  >Thunderbolt Docks</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link" data-cat="Lifestyle"
+                  >Ergonomic Stands</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-links-col">
+            <h4 class="footer-col-title">DevOps Portfolio</h4>
+            <ul class="footer-links-list">
+              <li>
+                <a href="/actuator/health" target="_blank" class="footer-link"
+                  >Spring Actuator Health</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/actuator/prometheus"
+                  target="_blank"
+                  class="footer-link"
+                  >Prometheus Scraping</a
+                >
+              </li>
+              <li>
+                <a href="/swagger-ui.html" target="_blank" class="footer-link"
+                  >Swagger / OpenAPI</a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-link" id="footerDevOpsLink"
+                  >Monolith Deployment Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-newsletter-col">
+            <h4 class="footer-col-title">Stay Connected</h4>
+            <p class="text-xs text-secondary mb-3">
+              Subscribe for hardware releases and firmware improvements.
+            </p>
+            <form id="newsletterForm" class="newsletter-form">
+              <input
+                type="email"
+                class="newsletter-input"
+                placeholder="Enter your email"
+                required
+              />
+              <button type="submit" class="btn btn-primary btn-sm">Join</button>
+            </form>
+            <p id="newsletterSuccess" class="text-xs text-emerald mt-2 hidden">
+              Thank you for subscribing to NEXORA.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="copyright-text">
+            &copy; 2026 NEXORA Inc. All rights reserved. Portfolio demonstration
+            application designed for AWS EKS, PostgreSQL, and Argo CD.
+          </p>
+          <div class="footer-badges">
+            <span class="security-badge">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              256-Bit TLS Encrypted
+            </span>
+            <span class="security-badge">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+              Stateless JWT Authentication
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- Main JavaScript application -->
+    <script src="store.js"></script>
+  </body>
+</html>

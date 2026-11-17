@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    app: maven-app
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+  labels:
+    app: maven-app
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stage
+  labels:
+    app: maven-app

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - maven_configmaps.yaml
+  - maven_deployment.yaml
+  - maven_externalname.yaml
+  - maven_services.yaml
+  - maven_ingress.yaml

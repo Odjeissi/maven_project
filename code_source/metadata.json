@@ -1,0 +1,5 @@
+{
+  "name": "NEXORA Storefront",
+  "description": "Modern, premium lifestyle and electronics e-commerce storefront for Java 21 + Spring Boot 3 monolith.",
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

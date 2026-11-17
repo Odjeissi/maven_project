@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-maven-app
+  namespace: argocd
+  # Ensures managed Kubernetes resources are deleted when this Application is deleted
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Odjeissi/gitops.git
+    targetRevision: HEAD
+    path: overlays/dev/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true      # Deletes resources no longer defined in Git
+      selfHeal: true   # Reverts manual changes made directly to the cluster
+    syncOptions:
+      - CreateNamespace=true

@@ -10,7 +10,7 @@ The application is a small e-commerce store called **NEXORA**. It uses Java 21, 
 
 ![Java e-commerce DevSecOps flow](docs/architecture/architecture1.png)
 
-**How it works:** I push code to GitHub, and GitLab CI/CD runs the tests and scans. The pipeline builds a Docker image and, on `main`, pushes it to Amazon ECR. It then updates the image tag in a separate [GitOps repository](https://github.com/Odjeissi/gitops). Argo CD picks up the change and syncs the app to EKS.
+**How it works:** I push code to GitLab CI/CD and it runs the tests and scans. The pipeline builds a Docker image and, on `main`, pushes it to Amazon ECR. It then updates the image tag in a separate [GitOps repository](https://github.com/Odjeissi/gitops). Argo CD picks up the change and syncs the app to EKS.
 
 The AWS infrastructure was created using **Terraform**. I'm keeping the Terraform code private, so it isn't included in this repository.
 
